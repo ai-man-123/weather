@@ -21,7 +21,6 @@ body {
 .bgcard {
   height: 100vh;
   width: 100%;
-  /* background: url("./res/bg/1563.jpg"); */
   background-size: cover;
   background-repeat: no-repeat;
   position: fixed;
@@ -45,6 +44,7 @@ body {
   border: none;
   outline: none;
   background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
   padding-left: 0.5rem;
   padding-right: 2.5rem;
   color: #fff;
@@ -58,7 +58,13 @@ body {
   position: absolute;
   right: 0;
   cursor: pointer;
-  color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.searchbox button img {
+  height: 50%;
+  width: 50%;
 }
 ::placeholder {
   color: rgb(204, 204, 204);
@@ -74,7 +80,7 @@ body {
   display: flex;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(5px);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   color: #fff;
   padding: 1rem 0;
@@ -194,13 +200,6 @@ body {
   transition: 0.2s;
   background-color: rgba(255, 255, 255, 0.2);
 }
-/* .days .daycard:nth-child(1) {
-  border: 2px solid rgba(255, 255, 255, 0.4);
-} */
-.days .daycard:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-}
 .days .daycard .daycardImage {
   height: 48px;
   width: 100%;
@@ -314,26 +313,33 @@ body {
   .daydetails {
     grid-template-columns: repeat(2, 1fr);
   }
-  .bgcard {
-    top: -40px;
-  }
   .searchbox {
     width: 100%;
     top: 0;
     right: 0;
     height: 60px;
     z-index: 2;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   }
   .searchbox input {
     width: calc(100% - 2rem);
     top: 0.75rem;
     right: 1rem;
     background-color: rgba(255, 255, 255, 0.1);
+    font-size: 1rem;
   }
   .searchbox button {
     top: 0.75rem;
     right: 1rem;
+  }
+  .days .daycard {
+    border-radius: 0;
+  }
+  .days .daycard:nth-child(2) {
+    border-left: 1px solid rgba(255, 255, 255, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.4);
   }
 }
 @media screen and (max-width: 370px) {

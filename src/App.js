@@ -3,6 +3,7 @@ import './main.css';
 import axios from "axios";
 import MainComponent from './components/MainComponent';
 import { DynamicBG } from './components/DynamicBG';
+import findme from './res/icons/findme.png'
 
 function App() {
   const [weather, setWeather] = useState(null)
@@ -75,7 +76,7 @@ function App() {
           <div className="searchbox">
             <form>
               <input type="text" placeholder="Search your city" onChange={weatherInput} value={input}/>
-              <button onClick={searchWeather}>Go</button>
+              <button onClick={searchWeather}><img src={findme} alt="" /></button>
             </form>
           </div>
           <MainComponent weather={weather} forecast={forecast}/>
