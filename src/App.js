@@ -48,8 +48,8 @@ function App() {
     try{
       // const responseWeather =  await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=859e72cd0f55c604f19409e351256432`);
       // const responseForecast =  await axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=London&units=metric&appid=859e72cd0f55c604f19409e351256432`);
-      const responseWeather =  await axios.get(`http://api.weatherapi.com/v1/current.json?key=493eecc7444e4bae8bb140053210905&q=${location}&aqi=yes`);
-      const responseForecast =  await axios.get(`http://api.weatherapi.com/v1/forecast.json?key=493eecc7444e4bae8bb140053210905&q=${location}&days=7&aqi=no&alerts=no`);
+      const responseWeather =  await axios.get(`https://api.weatherapi.com/v1/current.json?key=493eecc7444e4bae8bb140053210905&q=${location}&aqi=yes`);
+      const responseForecast =  await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=493eecc7444e4bae8bb140053210905&q=${location}&days=7&aqi=no&alerts=no`);
       setWeather(responseWeather.data)
       setForecast(responseForecast.data)
       console.log(responseWeather.data);
