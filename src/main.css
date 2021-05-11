@@ -1,0 +1,343 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 8px;
+  border: transparent;
+}
+body {
+  user-select: none;
+  font-family: "Poppins", sans-serif;
+}
+.bgcard {
+  height: 100vh;
+  width: 100%;
+  /* background: url("./res/bg/1563.jpg"); */
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: fixed;
+  z-index: -1;
+}
+.searchbox {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  height: 40px;
+  min-width: 250px;
+  z-index: 2;
+}
+.searchbox input {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 36px;
+  width: 100%;
+  border-radius: 36px;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding-left: 0.5rem;
+  padding-right: 2.5rem;
+  color: #fff;
+}
+.searchbox button {
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  color: gray;
+}
+::placeholder {
+  color: rgb(204, 204, 204);
+}
+.main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.weatherCard {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  padding: 1rem 0;
+}
+.psuedoWeatherCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.weatherCard h3 {
+  font-weight: unset;
+}
+.weatherCard .current {
+  display: flex;
+  width: 20%;
+  height: 5rem;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 0.5rem;
+}
+.weatherCard .current .icon img {
+  height: 5rem;
+  width: 5rem;
+}
+.weatherCard .current h1 {
+  font-size: 5rem;
+  font-weight: unset;
+}
+.psuedoWeatherCard > p {
+  margin: 0.5rem 0 1rem 0;
+  font-weight: bold;
+}
+.info {
+  width: 40%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 0.5rem;
+}
+.info span {
+  margin-left: 4px;
+}
+.info p {
+  font-size: 0.75rem;
+}
+.floatLeft {
+  margin-top: 2rem;
+  width: 75%;
+}
+.hourly {
+  width: 75%;
+  height: 150px;
+  margin-top: 1rem;
+  display: flex;
+}
+.hourly .hourlybar {
+  position: relative;
+  width: 4%;
+  height: 100%;
+  pointer-events: none;
+}
+.hourly .hourlybar .bar {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  pointer-events: all;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.hourly .hourlybar p {
+  position: absolute;
+  left: 50%;
+  width: 100%;
+  text-align: center;
+  opacity: 0.2;
+  transition: 0.2s;
+  font-size: 0.5rem;
+}
+.hourly .hourlybar .bar:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.hourly .hourlybar .bar:hover ~ p {
+  opacity: 1;
+  transform: scale(1.05);
+}
+.currenthour {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0)
+  );
+  transition: 0.2s;
+}
+.currenthour:hover {
+  background: transparent;
+}
+.hourlytime {
+  display: flex;
+  width: 75%;
+  justify-content: space-around;
+  padding: 0 2%;
+  font-size: 12px;
+}
+.days {
+  width: 75%;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1rem;
+}
+.days .daycard {
+  width: 150px;
+  height: 100%;
+  padding: 1rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: 0.2s;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* .days .daycard:nth-child(1) {
+  border: 2px solid rgba(255, 255, 255, 0.4);
+} */
+.days .daycard:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+.days .daycard .daycardImage {
+  height: 48px;
+  width: 100%;
+  margin: 0.5rem 0;
+  position: relative;
+}
+.days .daycard .daycardImage img {
+  height: 48px;
+  width: 48px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.days .daycard .daycardHiLow p {
+  font-size: 1.25rem;
+}
+.days .daycard .daycardHiLow p span {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-left: 0.5rem;
+}
+.days .daycard .daycardDesc p {
+  font-size: 0.75rem;
+  margin-top: 0.5rem;
+}
+.daydetails {
+  width: 75%;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 0.5rem;
+}
+.daydetails p {
+  font-size: 0.75rem;
+}
+.daydetails .gridCard {
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+.daydetails .gridCard .gridCardColumn {
+  width: 50%;
+}
+.daydetails .gridCard .gridCardColumn > p {
+  text-align: center;
+}
+.daydetails .gridCard .gridCardColumn .detailsInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.daydetails .gridCard .gridCardColumn .detailsInfo img {
+  height: 36px;
+  width: 36px;
+}
+.moonphase {
+  grid-column-end: span 2;
+  background-color: rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+.moonphase > p {
+  text-align: center;
+}
+.moonphase p:nth-child(3),
+.detailsInfo > p {
+  margin-top: 0.5rem;
+}
+.moonphase .moonPhasesImages {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.5rem;
+}
+.moonphase .moonPhasesImages .phaseImg {
+  opacity: 0.3;
+}
+.moonphase .moonPhasesImages .opaque {
+  opacity: 1;
+}
+.moonphase .moonPhasesImages .phaseImg img {
+  height: 36px;
+  width: 36px;
+}
+@media screen and (max-width: 768px) {
+  .weatherCard {
+    padding-top: 4rem;
+  }
+  .weatherCard .current {
+    width: 40%;
+  }
+  .info {
+    width: 75%;
+  }
+  .floatLeft,
+  .hourly,
+  .hourlytime,
+  .days,
+  .daydetails {
+    width: 95%;
+  }
+  .hourly .hourlybar p {
+    font-size: 0.3rem;
+  }
+  .daydetails {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .bgcard {
+    top: -40px;
+  }
+  .searchbox {
+    width: 100%;
+    top: 0;
+    right: 0;
+    height: 60px;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  .searchbox input {
+    width: calc(100% - 2rem);
+    top: 0.75rem;
+    right: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .searchbox button {
+    top: 0.75rem;
+    right: 1rem;
+  }
+}
+@media screen and (max-width: 370px) {
+  .info {
+    width: 95%;
+  }
+}
