@@ -8,11 +8,11 @@ import clearCloudy from '../res/bg/ClearCloudy.png'
 
 export const DynamicBG = ({weather, forecast}) => {
     const today = new Date(`${forecast.location.localtime}`).getTime();
-    console.log(today)
+    // console.log(today)
     const sunrise = new Date(`${forecast.forecast.forecastday[0].date} ${forecast.forecast.forecastday[0].astro.sunrise.substr(0,5)}`).getTime();
-    console.log(sunrise)
+    // console.log(sunrise)
     const sunset = new Date(`${forecast.forecast.forecastday[0].date} ${forecast.forecast.forecastday[0].astro.sunset.substr(0,5)}`).getTime() + 43200000;
-    console.log(sunset)
+    // console.log(sunset)
     const code = weather.current.condition.code
     let bg;
     if(code===1000){

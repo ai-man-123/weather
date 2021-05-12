@@ -90,6 +90,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  position: relative;
 }
 .weatherCard h3 {
   font-weight: unset;
@@ -129,12 +130,29 @@ body {
 .floatLeft {
   margin-top: 2rem;
   width: 75%;
+  padding: 0 2% 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+.floatLeft button {
+  height: 28px;
+  width: 4rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  outline: none;
+  border: none;
+  color: #fff;
+  font-size: 0.6rem;
+  cursor: pointer;
+}
+.floatLeft .btnactive {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 .hourly {
   width: 75%;
-  height: 150px;
+  height: 250px;
   margin-top: 1rem;
   display: flex;
+  position: relative;
 }
 .hourly .hourlybar {
   position: relative;
@@ -145,7 +163,7 @@ body {
 .hourly .hourlybar .bar {
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: 5px;
   width: 100%;
   background-color: rgba(255, 255, 255, 0.2);
   pointer-events: all;
@@ -161,23 +179,52 @@ body {
   transition: 0.2s;
   font-size: 0.5rem;
 }
-.hourly .hourlybar .bar:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-}
 .hourly .hourlybar .bar:hover ~ p {
   opacity: 1;
   transform: scale(1.05);
 }
+.graphly {
+  width: 75%;
+  height: 250px;
+  margin-top: 1rem;
+  padding: 0 1%;
+  position: relative;
+}
+.graphly .absolutegraphlybar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+.graphly .absolutegraphlybar .graphlybar {
+  position: relative;
+  width: 4%;
+  left: 2%;
+  height: 100%;
+}
+.graphly .absolutegraphlybar .graphlybar p {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  opacity: 0.4;
+  transition: 0.2s;
+  font-size: 0.5rem;
+  bottom: 0;
+}
 .currenthour {
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  bottom: 6px;
+  left: 2%;
+  transform: translateX(-50%);
   background: linear-gradient(
-    to right,
+    to top,
     rgba(255, 255, 255, 0.2),
     rgba(255, 255, 255, 0)
   );
-  transition: 0.2s;
-}
-.currenthour:hover {
-  background: transparent;
 }
 .hourlytime {
   display: flex;
@@ -304,7 +351,8 @@ body {
   .hourly,
   .hourlytime,
   .days,
-  .daydetails {
+  .daydetails,
+  .graphly {
     width: 95%;
   }
   .hourly .hourlybar p {

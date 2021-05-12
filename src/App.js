@@ -3,7 +3,7 @@ import './main.css';
 import axios from "axios";
 import MainComponent from './components/MainComponent';
 import { DynamicBG } from './components/DynamicBG';
-import findme from './res/icons/findme.png'
+import FindMe from './components/FindMe';
 
 function App() {
   const [weather, setWeather] = useState(null)
@@ -22,33 +22,44 @@ function App() {
       //   const locUnhandled = "New Delhi"
       //   getWeather(locUnhandled)
       // }
-      if (navigator.geolocation) {
-        var timeoutInSeconds=1;
-        var geotimeout=setTimeout(function() {
-            const locUnhandled = "New Delhi"
-            getWeather(locUnhandled)
-        },timeoutInSeconds*1000+500); //plus 500 ms to allow the API to timeout normally
-        navigator.geolocation.getCurrentPosition(function (position) {
+      if (input===''){
+        const noGeoLocationHandle = () =>{
+          alert('Location is turned off. Default location set to "New Delhi"')
+          const locUnhandled = "New Delhi"
+          getWeather(locUnhandled)
+        }
+        if (navigator.geolocation) {
+          var timeoutInSeconds=1;
+          var geotimeout=setTimeout(function() {
+            noGeoLocationHandle()
+          },timeoutInSeconds*1000+500); //plus 500 ms to allow the API to timeout normally
+          navigator.geolocation.getCurrentPosition(position => {
             clearTimeout(geotimeout);
             const locHandled = `${position.coords.latitude},${position.coords.longitude}`;
             getWeather(locHandled);
-        }, function () {
+          },
+          function () {
             clearTimeout(geotimeout);
-            const locUnhandled = "New Delhi"
-            getWeather(locUnhandled)
-        },{
+            noGeoLocationHandle()
+          },
+          {
             enableHighAccuracy:true,
             timeout: timeoutInSeconds*1000
-        });
-    } else {
-        const locUnhandled = "New Delhi"
-        getWeather(locUnhandled)
-    }
-  }, [])
+          });
+        }
+        else{
+          noGeoLocationHandle()
+        }
+      }
+      else{
+          console.log("bla")
+          getWeather(input)
+          console.log(input)
+      }
+  }, [input])
   const getWeather = async (location) =>{
     try{
-      // const responseWeather =  await axios.get(`http://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=859e72cd0f55c604f19409e351256432`);
-      // const responseForecast =  await axios.get(`http://api.openweathermap.org/data/2.5/forecast?q=London&units=metric&appid=859e72cd0f55c604f19409e351256432`);
+      console.log(`Location updated to - ${location}`)
       const responseWeather =  await axios.get(`https://api.weatherapi.com/v1/current.json?key=493eecc7444e4bae8bb140053210905&q=${location}&aqi=yes`);
       const responseForecast =  await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=493eecc7444e4bae8bb140053210905&q=${location}&days=7&aqi=no&alerts=no`);
       setWeather(responseWeather.data)
@@ -57,28 +68,15 @@ function App() {
       console.log(responseForecast.data);
     }
     catch(error){
-      alert("Please enter a valid 'city', 'pin' or 'lat, long'")
+      alert('Please enter a valid "City", "City, Country" or "Latitude, Longitude".')
     }
-  }
-  const weatherInput = (e) =>{
-    setInput(e.target.value)
-  }
-  const searchWeather = (e) =>{
-    e.preventDefault()
-    getWeather(input)
-    setInput("")
   }
   return (
     <div className="App">
       {weather && forecast && (
         <div>
           <DynamicBG weather={weather} forecast={forecast}/>
-          <div className="searchbox">
-            <form>
-              <input type="text" placeholder="Search your city" onChange={weatherInput} value={input}/>
-              <button onClick={searchWeather}><img src={findme} alt="" /></button>
-            </form>
-          </div>
+          <FindMe setInput={setInput}/>
           <MainComponent weather={weather} forecast={forecast}/>
         </div>
       )}
