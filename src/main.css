@@ -45,7 +45,7 @@ body {
   outline: none;
   background-color: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(5px);
-  padding-left: 0.5rem;
+  padding-left: 1rem;
   padding-right: 2.5rem;
   color: #fff;
 }
@@ -79,7 +79,7 @@ body {
   flex-direction: column;
   display: flex;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   color: #fff;
@@ -119,10 +119,10 @@ body {
   width: 40%;
   display: flex;
   justify-content: space-around;
-  margin-bottom: 0.5rem;
+  padding-top: 0.5rem;
 }
 .info span {
-  margin-left: 4px;
+  margin-left: 2px;
 }
 .info p {
   font-size: 0.75rem;
@@ -137,7 +137,7 @@ body {
 .floatLeft button {
   height: 28px;
   width: 4rem;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
   outline: none;
   border: none;
   color: #fff;
@@ -145,14 +145,15 @@ body {
   cursor: pointer;
 }
 .floatLeft .btnactive {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 .hourly {
   width: 75%;
-  height: 250px;
+  height: 260px;
   margin-top: 1rem;
   display: flex;
   position: relative;
+  overflow: hidden;
 }
 .hourly .hourlybar {
   position: relative;
@@ -185,7 +186,7 @@ body {
 }
 .graphly {
   width: 75%;
-  height: 250px;
+  height: 260px;
   margin-top: 1rem;
   padding: 0 1%;
   position: relative;
@@ -197,6 +198,7 @@ body {
   height: 100%;
   width: 100%;
   display: flex;
+  overflow: hidden;
 }
 .graphly .absolutegraphlybar .graphlybar {
   position: relative;
@@ -267,9 +269,11 @@ body {
   height: 100%;
   padding: 1rem 0.5rem;
   border-radius: 0.25rem;
-  transition: 0.2s;
   background-color: rgba(255, 255, 255, 0.2);
   cursor: pointer;
+}
+.days .daycardactive {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 .days .daycard .daycardImage {
   height: 48px;
@@ -410,6 +414,11 @@ body {
   .searchbox button {
     top: 0.75rem;
     right: 1rem;
+    transform: scale(0);
+    transition: 0.2s;
+  }
+  .searchbox input:focus ~ button {
+    transform: scale(1);
   }
   .days .daycard {
     border-radius: 0;

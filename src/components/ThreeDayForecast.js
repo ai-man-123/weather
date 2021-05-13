@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ThreeDayForecast = ({forecast, setSelectHourlyDay}) => {
+const ThreeDayForecast = ({weather, forecast, selectHourlyDay, setSelectHourlyDay}) => {
     const today = new Date();
     var weekday = new Array(7);
     weekday[0] = "Sun";
@@ -12,6 +12,7 @@ const ThreeDayForecast = ({forecast, setSelectHourlyDay}) => {
     weekday[6] = "Sat";
     var n = today.getDay();
     let i=0
+    let j=0
     const setDay1 = () =>{
         setSelectHourlyDay(0)
     }
@@ -26,12 +27,12 @@ const ThreeDayForecast = ({forecast, setSelectHourlyDay}) => {
             <h3 className="floatLeft">3 Day Forecast</h3>
             <div className="days">
             {forecast.forecast.forecastday.map(day=>(
-                <div className="daycard" key={Math.random()*Math.random()} onClick={(i++ ? (i===2 ? setDay2 : setDay3) : setDay1)}>
+                <div className={`daycard ${(selectHourlyDay===0 && i===0) ? 'daycardactive' :''} ${(selectHourlyDay===1 && i===1) ? 'daycardactive' :''} ${(selectHourlyDay===2 && i===2) ? 'daycardactive' :''}`} key={Math.random()*Math.random()} onClick={(i++ ? (i===2 ? setDay2 : setDay3) : setDay1)}>
                     <div className="daycardHeader">
-                        <p>{weekday[n++]} {day.date.substr(8, 5)}</p>
+                        <p>{weekday[(n<=6?n++:j++)]} {day.date.substr(8, 5)}</p>
                     </div>
                     <div className="daycardImage">
-                        <img src={day.day.condition.icon} alt="" />
+                        <img src={`/weather/assets/weathericons/${weather.current.is_day}/${day.day.condition.icon.substr(weather.current.condition.icon.length - 7,weather.current.condition.icon.length)}`} alt="" />
                     </div>
                     <div className="daycardHiLow">
                         <p>{day.day.maxtemp_c}° <span>{day.day.mintemp_c}°</span></p>

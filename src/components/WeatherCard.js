@@ -1,12 +1,13 @@
 import React from 'react'
 
 const WeatherCard = ({weather}) => {
+    const img = `/weather/assets/weathericons/${weather.current.is_day}/${weather.current.condition.icon.substr(weather.current.condition.icon.length - 7,weather.current.condition.icon.length)}`
     return (
         <div className="psuedoWeatherCard">
             <h2>{weather.location.name}, {weather.location.country}</h2>
             <div className="current">
                 <div className="icon">
-                    <img src={weather.current.condition.icon} alt="" />
+                    <img src={img} alt="" />
                 </div>
                 <h1>{weather.current.temp_c}°c</h1>
             </div>
