@@ -246,6 +246,7 @@ body {
   border-radius: 0.25rem;
   transition: 0.2s;
   background-color: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
 }
 .days .daycard .daycardImage {
   height: 48px;
@@ -358,6 +359,9 @@ body {
   .hourly .hourlybar p {
     font-size: 0.3rem;
   }
+  .graphly .absolutegraphlybar {
+    display: none;
+  }
   .daydetails {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -390,7 +394,7 @@ body {
     border-right: 1px solid rgba(255, 255, 255, 0.4);
   }
 }
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 376px) {
   .info {
     width: 95%;
   }

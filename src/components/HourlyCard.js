@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Line } from 'react-chartjs-2'
 
-const HourlyCard = ({weather, forecast}) => {
+const HourlyCard = ({weather, forecast, selectHourlyDay}) => {
     const [bar, setBar] = useState(true)
     const [line, setLine] = useState(false)
     let i=0;
@@ -16,10 +16,20 @@ const HourlyCard = ({weather, forecast}) => {
         label.push(`${i}:00`)
         i++;
     }
-    // console.log(data0)
-    // console.log(data1)
-    // console.log(data2)
-    i=0
+    let dayNo = 0
+    let databar = data0
+    if(selectHourlyDay===0){
+        dayNo = 0
+        databar = data0
+    }
+    if(selectHourlyDay===1){
+        dayNo = 1
+        databar = data1
+    }
+    if(selectHourlyDay===2){
+        dayNo = 2
+        databar = data2
+    }
     const barClicked = () =>{
         setBar(true)
         setLine(false)
@@ -35,7 +45,6 @@ const HourlyCard = ({weather, forecast}) => {
     else
         min = parseInt(forecast.location.localtime.substr(14,2))
     const chrprogress = `${(Math.round(((hr*4 + 2) + ((min*100 / 60)/25))*100)/100)}%`
-    console.log(chrprogress)
     return (
         <div className="psuedoWeatherCard">
             <div className="floatLeft">
@@ -48,13 +57,13 @@ const HourlyCard = ({weather, forecast}) => {
             {
                 bar && (
                     <div className="hourly">
-                        {forecast.forecast.forecastday[0].hour.map(hour=>(
+                        {forecast.forecast.forecastday[dayNo].hour.map(hour=>(
                         <div className="hourlybar" key={Math.random()*Math.random()}>
-                            <div className="bar" style={{height: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[0].day.maxtemp_c))}px`}}></div>
-                            <p style={{bottom: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[0].day.maxtemp_c) + 10)}px`}}>{hour.temp_c}°c</p>
+                            <div className="bar" style={{height: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25}px`}}></div>
+                            <p style={{bottom: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c) - 15)}px`}}>{hour.temp_c}°c</p>
                         </div>
                         ))}
-                        <div className="currenthour" style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[0].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[0].day.maxtemp_c))}px`}}></div>
+                        <div className="currenthour" style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[dayNo].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25}px`}}></div>
                     </div>
                 )
             }
@@ -65,7 +74,7 @@ const HourlyCard = ({weather, forecast}) => {
                             data = {{
                                 labels: label,
                                 datasets: [{
-                                    data: data0,
+                                    data: databar,
                                     fill: true,
                                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
                                     borderColor: 'rgba(255, 255, 255, 0.4)',
@@ -104,13 +113,13 @@ const HourlyCard = ({weather, forecast}) => {
                             }}
                         />
                         <div className="absolutegraphlybar">
-                            {forecast.forecast.forecastday[0].hour.map(hour=>(
+                            {forecast.forecast.forecastday[dayNo].hour.map(hour=>(
                             <div className="graphlybar" key={Math.random()*Math.random()}>
-                                <p style={{bottom: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[0].day.maxtemp_c ) + 10)}px`}}>{hour.temp_c}°c</p>
+                                <p style={{bottom: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c ) - 15)}px`}}>{hour.temp_c}°c</p>
                             </div>
                             ))}
                         </div>
-                        <div className="currenthour" style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[0].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[0].day.maxtemp_c))}px`}}></div>
+                        <div className="currenthour" style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[dayNo].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25 }px`}}></div>
                     </div>
                 )
             }

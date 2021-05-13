@@ -52,14 +52,11 @@ function App() {
         }
       }
       else{
-          console.log("bla")
           getWeather(input)
-          console.log(input)
       }
   }, [input])
   const getWeather = async (location) =>{
     try{
-      console.log(`Location updated to - ${location}`)
       const responseWeather =  await axios.get(`https://api.weatherapi.com/v1/current.json?key=493eecc7444e4bae8bb140053210905&q=${location}&aqi=yes`);
       const responseForecast =  await axios.get(`https://api.weatherapi.com/v1/forecast.json?key=493eecc7444e4bae8bb140053210905&q=${location}&days=7&aqi=no&alerts=no`);
       setWeather(responseWeather.data)
