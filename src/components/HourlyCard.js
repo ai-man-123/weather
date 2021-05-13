@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react'
 import { Line } from 'react-chartjs-2'
 
-const HourlyCard = ({weather, forecast, selectHourlyDay}) => {
+const HourlyCard = ({forecast, selectHourlyDay}) => {
     const timeRef = useRef(null)
     const [bar, setBar] = useState(true)
     const [line, setLine] = useState(false)
@@ -54,9 +54,6 @@ const HourlyCard = ({weather, forecast, selectHourlyDay}) => {
     const dontshowtime = () =>{
         timeRef.current.style.opacity="0"
     }
-    // useEffect(()=>{
-    //     showtime()
-    // },[])
     return (
         <div className="psuedoWeatherCard">
             <div className="floatLeft">
@@ -75,7 +72,9 @@ const HourlyCard = ({weather, forecast, selectHourlyDay}) => {
                             <p style={{bottom: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c) - 15)}px`}}>{hour.temp_c}°c</p>
                         </div>
                         ))}
+                        {(selectHourlyDay===0) && (
                         <div className="currenthour" onMouseOver={showtime} onMouseOut={dontshowtime} style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[dayNo].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25}px`}}></div>
+                        )}
                         <div className="currenttime" ref={timeRef}><p>{forecast.location.localtime.substr(11,5)}</p></div>
                     </div>
                 )
@@ -132,7 +131,9 @@ const HourlyCard = ({weather, forecast, selectHourlyDay}) => {
                             </div>
                             ))}
                         </div>
-                        <div className="currenthour" onMouseEnter={showtime} onMouseLeave={dontshowtime} style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[dayNo].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25 }px`}}></div>
+                        {(selectHourlyDay===0) && (
+                        <div className="currenthour" onMouseOver={showtime} onMouseOut={dontshowtime} style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[dayNo].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25}px`}}></div>
+                        )}
                         <div className="currenttime" ref={timeRef}><p>{forecast.location.localtime.substr(11,5)}</p></div>
                     </div>
                 )

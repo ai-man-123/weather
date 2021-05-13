@@ -3,7 +3,7 @@ import SunriseSunset from './detailComponent/SunriseSunset';
 import MoonPhase from './detailComponent/MoonPhase';
 import MoonriseMoonset from './detailComponent/MoonriseMoonset';
 
-const Details = ({weather, forecast}) => {
+const Details = ({forecast}) => {
     return (
         <div className="psuedoWeatherCard">
             <h3 className="floatLeft">Day Details</h3>

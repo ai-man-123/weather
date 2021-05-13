@@ -15,8 +15,8 @@ const MainComponent = ({weather, forecast}) => {
                 <InfoCard1 weather={weather}/>
                 <InfoCard2 weather={weather} forecast={forecast}/>
                 <ThreeDayForecast forecast={forecast} setSelectHourlyDay={setSelectHourlyDay}/>
-                <HourlyCard weather={weather} forecast={forecast} selectHourlyDay={selectHourlyDay}/>
-                <Details weather={weather} forecast={forecast}/>
+                <HourlyCard forecast={forecast} selectHourlyDay={selectHourlyDay}/>
+                <Details forecast={forecast}/>
             </div>
         </div>
     )
