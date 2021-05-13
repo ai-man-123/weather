@@ -14,15 +14,12 @@ const ThreeDayForecast = ({forecast, setSelectHourlyDay}) => {
     let i=0
     const setDay1 = () =>{
         setSelectHourlyDay(0)
-        console.log("card1")
     }
     const setDay2 = () =>{
         setSelectHourlyDay(1)
-        console.log("card2")
     }
     const setDay3 = () =>{
         setSelectHourlyDay(2)
-        console.log("card3")
     }
     return (
         <div className="psuedoWeatherCard">

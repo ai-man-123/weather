@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import { Line } from 'react-chartjs-2'
 
 const HourlyCard = ({weather, forecast, selectHourlyDay}) => {
+    const timeRef = useRef(null)
     const [bar, setBar] = useState(true)
     const [line, setLine] = useState(false)
     let i=0;
@@ -45,6 +46,17 @@ const HourlyCard = ({weather, forecast, selectHourlyDay}) => {
     else
         min = parseInt(forecast.location.localtime.substr(14,2))
     const chrprogress = `${(Math.round(((hr*4 + 2) + ((min*100 / 60)/25))*100)/100)}%`
+    const showtime = (e) =>{
+            timeRef.current.style.opacity="1"
+            timeRef.current.style.top=`${e.pageY - 15}px`
+            timeRef.current.style.left=`${e.pageX - 12}px`
+    }
+    const dontshowtime = () =>{
+        timeRef.current.style.opacity="0"
+    }
+    // useEffect(()=>{
+    //     showtime()
+    // },[])
     return (
         <div className="psuedoWeatherCard">
             <div className="floatLeft">
@@ -59,11 +71,12 @@ const HourlyCard = ({weather, forecast, selectHourlyDay}) => {
                     <div className="hourly">
                         {forecast.forecast.forecastday[dayNo].hour.map(hour=>(
                         <div className="hourlybar" key={Math.random()*Math.random()}>
-                            <div className="bar" style={{height: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25}px`}}></div>
+                            <div className="bar" style={{height: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25}px`, transition: "0.2s"}}></div>
                             <p style={{bottom: `${Math.floor(hour.temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c) - 15)}px`}}>{hour.temp_c}°c</p>
                         </div>
                         ))}
-                        <div className="currenthour" style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[dayNo].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25}px`}}></div>
+                        <div className="currenthour" onMouseOver={showtime} onMouseOut={dontshowtime} style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[dayNo].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25}px`}}></div>
+                        <div className="currenttime" ref={timeRef}><p>{forecast.location.localtime.substr(11,5)}</p></div>
                     </div>
                 )
             }
@@ -119,7 +132,8 @@ const HourlyCard = ({weather, forecast, selectHourlyDay}) => {
                             </div>
                             ))}
                         </div>
-                        <div className="currenthour" style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[dayNo].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25 }px`}}></div>
+                        <div className="currenthour" onMouseEnter={showtime} onMouseLeave={dontshowtime} style={{left: chrprogress, height: `${Math.floor(forecast.forecast.forecastday[dayNo].hour[hr].temp_c * Math.floor(250 / forecast.forecast.forecastday[dayNo].day.maxtemp_c)) - 25 }px`}}></div>
+                        <div className="currenttime" ref={timeRef}><p>{forecast.location.localtime.substr(11,5)}</p></div>
                     </div>
                 )
             }

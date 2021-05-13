@@ -22,33 +22,95 @@ function App() {
       //   const locUnhandled = "New Delhi"
       //   getWeather(locUnhandled)
       // }
+      // if(localStorage.getItem("savedLoc") === null){
+      //   console.log("no saved loc")
+      // }
+      // else{
+      //   let savedLoc = localStorage.getItem("savedLoc")
+      //   if (navigator.geolocation) {
+      //     var timeoutInSeconds=1;
+      //     var geotimeout=setTimeout(function() {
+      //       localStorage.setItem("savedLoc", savedLoc)
+      //     },timeoutInSeconds*1000+500); //plus 500 ms to allow the API to timeout normally
+      //     navigator.geolocation.getCurrentPosition(position => {
+      //       clearTimeout(geotimeout);
+      //       const newlocHandled = `${position.coords.latitude},${position.coords.longitude}`;
+      //       localStorage.setItem("savedLoc", newlocHandled)
+      //       getWeather(newlocHandled)
+      //     },
+      //     function () {
+      //       clearTimeout(geotimeout);
+      //       localStorage.setItem("savedLoc", savedLoc)
+      //     },
+      //     {
+      //       enableHighAccuracy:true,
+      //       timeout: timeoutInSeconds*1000
+      //     });
+      //   }
+      //   else{
+      //     getWeather(savedLoc)
+      //   }
+      // }
       if (input===''){
         const noGeoLocationHandle = () =>{
+          console.log("loc off")
           alert('Location is turned off. Default location set to "New Delhi"')
           const locUnhandled = "New Delhi"
           getWeather(locUnhandled)
         }
-        if (navigator.geolocation) {
-          var timeoutInSeconds=1;
-          var geotimeout=setTimeout(function() {
+        const savedGeoLocationHandle = (savedLoc) =>{
+          getWeather(savedLoc)
+        }
+        if(localStorage.getItem("savedLoc") === null){
+          if (navigator.geolocation) {
+            var timeoutInSeconds=1;
+            var geotimeout=setTimeout(function() {
+              noGeoLocationHandle()
+            },timeoutInSeconds*1000+500); //plus 500 ms to allow the API to timeout normally
+            navigator.geolocation.getCurrentPosition(position => {
+              clearTimeout(geotimeout);
+              const locHandled = `${position.coords.latitude},${position.coords.longitude}`;
+              localStorage.setItem("savedLoc", locHandled)
+              getWeather(locHandled);
+            },
+            function () {
+              clearTimeout(geotimeout);
+              noGeoLocationHandle()
+            },
+            {
+              enableHighAccuracy:true,
+              timeout: timeoutInSeconds*1000
+            });
+          }
+          else{
             noGeoLocationHandle()
-          },timeoutInSeconds*1000+500); //plus 500 ms to allow the API to timeout normally
-          navigator.geolocation.getCurrentPosition(position => {
-            clearTimeout(geotimeout);
-            const locHandled = `${position.coords.latitude},${position.coords.longitude}`;
-            getWeather(locHandled);
-          },
-          function () {
-            clearTimeout(geotimeout);
-            noGeoLocationHandle()
-          },
-          {
-            enableHighAccuracy:true,
-            timeout: timeoutInSeconds*1000
-          });
+          }
         }
         else{
-          noGeoLocationHandle()
+          let savedLoc = localStorage.getItem("savedLoc")
+          if (navigator.geolocation) {
+            var timeoutInSeconds2=1;
+            var geotimeout2=setTimeout(function() {
+              savedGeoLocationHandle(savedLoc)
+            },timeoutInSeconds2*1000+500); //plus 500 ms to allow the API to timeout normally
+            navigator.geolocation.getCurrentPosition(position => {
+              clearTimeout(geotimeout2);
+              const newlocHandled = `${position.coords.latitude},${position.coords.longitude}`;
+              localStorage.setItem("savedLoc", newlocHandled)
+              getWeather(newlocHandled)
+            },
+            function () {
+              clearTimeout(geotimeout2);
+              savedGeoLocationHandle(savedLoc)
+            },
+            {
+              enableHighAccuracy:true,
+              timeout: timeoutInSeconds2*1000
+            });
+          }
+          else{
+            savedGeoLocationHandle(savedLoc)
+          }
         }
       }
       else{
