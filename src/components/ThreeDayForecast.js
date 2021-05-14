@@ -2,6 +2,13 @@ import React from 'react'
 
 const ThreeDayForecast = ({weather, forecast, selectHourlyDay, setSelectHourlyDay}) => {
     const today = new Date();
+    let k=0;
+    if(forecast.forecast.forecastday[selectHourlyDay].day.condition.icon.substr(weather.current.condition.icon.length - 7,weather.current.condition.icon.length).length===7){
+        k=7
+    }
+    if(forecast.forecast.forecastday[selectHourlyDay].day.condition.icon.substr(weather.current.condition.icon.length - 9,weather.current.condition.icon.length).length===7){
+        k=9
+    }
     var weekday = new Array(7);
     weekday[0] = "Sun";
     weekday[1] = "Mon";
@@ -32,7 +39,7 @@ const ThreeDayForecast = ({weather, forecast, selectHourlyDay, setSelectHourlyDa
                         <p>{weekday[(n<=6?n++:j++)]} {day.date.substr(8, 5)}</p>
                     </div>
                     <div className="daycardImage">
-                        <img src={`/weather/assets/weathericons/${weather.current.is_day}/${day.day.condition.icon.substr(weather.current.condition.icon.length - 7,weather.current.condition.icon.length)}`} alt="" />
+                        <img src={`/weather/assets/weathericons/${weather.current.is_day}/${day.day.condition.icon.substr(weather.current.condition.icon.length - k,weather.current.condition.icon.length)}`} alt="" />
                     </div>
                     <div className="daycardHiLow">
                         <p>{day.day.maxtemp_c}° <span>{day.day.mintemp_c}°</span></p>
