@@ -12,8 +12,8 @@ function App() {
   useEffect(()=>{
       if (input===''){
         const noGeoLocationHandle = () =>{
-          alert('Location is turned off. Default location set to "New Delhi"')
-          const locUnhandled = "New Delhi"
+          alert('Location is turned off. Default location set to "Malaysia"')
+          const locUnhandled = "Malaysia"
           getWeather(locUnhandled)
         }
         const savedGeoLocationHandle = (savedLoc) =>{
